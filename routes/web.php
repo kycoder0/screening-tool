@@ -14,3 +14,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::view('/', 'welcome')->name('home');
+
+Route::get('/migraine-trial-questionnaire', \App\Livewire\QuestionnaireForm::class);
