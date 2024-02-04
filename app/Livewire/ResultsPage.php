@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Form;
 use App\Models\Outcome;
 use App\Models\Submission;
 use App\Services\OutcomeService;
@@ -17,9 +18,13 @@ class ResultsPage extends Component
 
     public function mount(OutcomeService $outcomeService, $formName)
     {
+        $form = Form::where('name', 'like', str_replace('-', ' ', $formName))->firstOrFail();
         // get submission by user_ip
         try {
-            $this->submission = Submission::where('user_ip', request()->ip())->firstOrFail();
+            $this->submission = Submission::where('user_ip', request()->ip())
+                ->where('form_id', $form->id)
+                ->with('outcome')
+                ->firstOrFail();
         } catch (\Exception $e) {
             return redirect("trials/$formName");
         }
