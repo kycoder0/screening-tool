@@ -15,10 +15,15 @@ class ResultsPage extends Component
     protected $answers;
     protected $outcomeText;
 
-    public function mount(OutcomeService $outcomeService)
+    public function mount(OutcomeService $outcomeService, $formName)
     {
         // get submission by user_ip
-        $this->submission = Submission::where('user_ip', request()->ip())->firstOrFail();
+        try {
+            $this->submission = Submission::where('user_ip', request()->ip())->firstOrFail();
+        } catch (\Exception $e) {
+            return redirect("trials/$formName");
+        }
+
         $this->outcome = $this->submission->outcome;
         $this->outcomeText = $outcomeService->getOutcomeText($this->outcome, json_decode($this->submission->answers, true));
         $this->form = $this->submission->form;
