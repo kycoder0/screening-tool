@@ -60,7 +60,7 @@ class FormAndQuestionsSeeder extends Seeder
                 'input_type' => 'radio',
                 'options' => ['1-2', '3-4', '5+'],
                 'validation_rules' => ['required'],
-                'visibility_rule' => ['question_name' => 'migraine_frequency', 'answer' => 'daily']
+                'visibility_rule' => ['depends_on' => 'migraine_frequency', 'value' => 'daily']
             ],
         ];
 
