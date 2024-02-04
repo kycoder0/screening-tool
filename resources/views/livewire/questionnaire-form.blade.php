@@ -1,5 +1,5 @@
 <div class="flex flex-col justify-center items-center h-100 w-full">
-    <div class="w-full xl:w-1/2 mt-28">
+    <div class="w-full lg:w-2/3 xl:w-1/2 mt-28 mb-16 px-5">
         <h1 class="text-indigo-500 text-5xl">{{ $form->name }}</h1>
         <p class="text-indigo-950 text-xl mt-2">{{ $form->description }}</p>
 
