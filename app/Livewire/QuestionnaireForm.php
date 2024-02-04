@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Form;
+use App\Models\Submission;
 use App\Services\OutcomeService;
 use Livewire\Component;
 
@@ -43,8 +44,8 @@ class QuestionnaireForm extends Component
             'user_ip' => request()->ip(),
         ]);
 
-        $outcomeText = $outcomeService->getOutcomeText($outcome, $this->answers);
-        // TODO save answers and redirect to results page
+        $route = strtolower(str_replace(' ', '-', $this->form->name));
+        return redirect()->to("trials/$route/results");
     }
 
     protected function buildValidationRules()
