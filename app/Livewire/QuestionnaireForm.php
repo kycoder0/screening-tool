@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Form;
+use App\Services\OutcomeService;
 use Livewire\Component;
 
 class QuestionnaireForm extends Component
@@ -23,11 +24,20 @@ class QuestionnaireForm extends Component
         }
     }
 
-    public function submitForm()
+    public function submitForm(OutcomeService $outcomeService)
     {
         $rules = $this->buildValidationRules();
         $messages = $this->buildValidationMessages();
         $this->validate($rules, $messages);
+        $outcome = $outcomeService->getOutcome($this->form, $this->answers);
+        $this->form->submissions()->create([
+            'outcome_id' => $outcome->id,
+            'answers' => json_encode($this->answers),
+            'user_ip' => request()->ip(),
+        ]);
+
+        $outcomeText = $outcomeService->getOutcomeText($outcome, $this->answers);
+        // TODO save answers and redirect to results page
     }
 
     protected function buildValidationRules()

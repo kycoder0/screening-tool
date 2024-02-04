@@ -9,5 +9,8 @@ class Outcome extends Model
 {
     use HasFactory;
 
+    protected $casts = [
+        'rules' => 'array',
+    ];
     protected $fillable = ['name', 'conclusion', 'rules'];
 }

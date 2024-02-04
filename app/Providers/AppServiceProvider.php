@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Services\OutcomeService;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -11,7 +12,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->singleton(OutcomeService::class, function ($app) {
+            return new OutcomeService();
+        });
     }
 
     /**
