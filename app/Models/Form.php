@@ -16,4 +16,9 @@ class Form extends Model
     {
         return $this->hasMany(Question::class);
     }
+
+    public function outcomes(): HasMany
+    {
+        return $this->hasMany(Outcome::class);
+    }
 }
