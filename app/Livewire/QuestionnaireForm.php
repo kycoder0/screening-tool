@@ -5,15 +5,17 @@ namespace App\Livewire;
 use App\Models\Form;
 use App\Models\Submission;
 use App\Services\OutcomeService;
+use App\Services\QuestionService;
 use Livewire\Component;
 
 class QuestionnaireForm extends Component
 {
-    const ALWAYS_VISIBLE_RULE = 'always_visible';
 
     public $form;
 
     public $answers = [];
+
+    protected QuestionService $questionService;
 
     public function mount($formName)
     {
@@ -34,8 +36,9 @@ class QuestionnaireForm extends Component
 
     public function submitForm(OutcomeService $outcomeService)
     {
-        $rules = $this->buildValidationRules();
-        $messages = $this->buildValidationMessages();
+        $rules = $this->questionService->buildValidationRules($this->form->questions, $this->answers);
+        $messages = $this->questionService->buildValidationMessages($this->form->questions);
+
         $this->validate($rules, $messages);
         $outcome = $outcomeService->getOutcome($this->form, $this->answers);
         $this->form->submissions()->create([
@@ -48,70 +51,19 @@ class QuestionnaireForm extends Component
         return redirect()->to("trials/$route/results");
     }
 
-    protected function buildValidationRules()
+    public function isVisible($question)
     {
-        $rules = [];
-        foreach ($this->form->questions as $question) {
-            if ($question->validation_rules) {
-                $rules["answers.{$question->name}"] = $question->validation_rules;
-                // if not visible, remove "required" rule from the rules array
-                if (!$this->isVisible($question)) {
-                    // filter out the "required" rule
-                    $rules["answers.{$question->name}"] = array_filter($question->validation_rules, function ($rule) {
-                        return $rule != 'required';
-                    });
-                }
-            }
-        }
-
-        return $rules;
-    }
-
-    protected function buildValidationMessages()
-    {
-        $messages = [];
-        foreach ($this->form->questions as $question) {
-            if ($question->validation_rules) {
-                $ruleKey = "answers.{$question->name}.required";
-                $label = strtoupper(substr($question->label, 0, 1)) . strtolower(substr($question->label, 1));
-                $messages[$ruleKey] = "{$label} is required.";
-            }
-        }
-        return $messages;
-    }
-
-     public function isVisible($question)
-    {
-        if (empty($question->visibility_rule)) {
-            return true; // No visibility rules, so the question is always visible
-        }
-
-        if ($question->visibility_rule == self::ALWAYS_VISIBLE_RULE) {
-            return true; // The question is always visible
-        }
-
-        $rules = $question->visibility_rule;
-        $dependsOnName = $rules['depends_on'];
-        $requiredValue = $rules['value'];
-
-        // Find the ID of the question that $dependsOnName refers to
-        return isset($this->answers[$dependsOnName]) && $this->answers[$dependsOnName] == $requiredValue;
-    }
-
-    protected function findQuestionIdByName($name)
-    {
-        foreach ($this->form->questions as $question) {
-            if ($question->name == $name) {
-                return $question->id;
-            }
-        }
-        return null;
+        return $this->questionService->isVisible($question, $this->answers);
     }
 
     public function render()
     {
         return view('livewire.questionnaire-form')
             ->extends('layouts.app');
+    }
+
+    public function boot(QuestionService $questionService) {
+        $this->questionService = $questionService;
     }
 }
 
