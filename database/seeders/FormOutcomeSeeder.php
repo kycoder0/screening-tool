@@ -7,7 +7,12 @@ use App\Models\Form; // Ensure you use the correct namespace for your Form model
 
 class FormOutcomeSeeder extends Seeder
 {
-    public function run()
+    public function run(): void
+    {
+        $this->seedMigraineTrialOutcomes();
+    }
+
+    public function seedMigraineTrialOutcomes(): void
     {
         $form = Form::where('name', 'Migraine Trial Questionnaire')->first();
 
