@@ -66,7 +66,7 @@ class FormOutcomeSeeder extends Seeder
         foreach ($outcomesJson as $outcomeData) {
             $form->outcomes()->create([
                 'name' => $outcomeData['name'],
-                'rules' => json_encode($outcomeData['rules']),
+                'rules' => $outcomeData['rules'],
                 'conclusion' => $outcomeData['conclusion'],
             ]);
         }
