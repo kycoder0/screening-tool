@@ -14,10 +14,17 @@ class QuestionnaireForm extends Component
 
     public $answers = [];
 
-    public function mount()
+    public function mount($formName)
     {
-        $this->form = Form::where('name', 'Migraine Trial Questionnaire')->with('questions')->firstOrFail();
-        //$this->form = Form::with('questions')->findOrFail($formId);
+        // convert the form name to a route
+        $route = strtolower(str_replace('-', ' ', $formName));
+        $this->form = Form::where('name', 'like', $route)->with('questions')->firstOrFail();
+        $submission = Submission::where('user_ip', request()->ip())
+            ->where('form_id', $this->form->id)
+            ->first();
+        if ($submission) {
+            $this->redirect("trials/$formName/results");
+        }
 
         foreach ($this->form->questions as $question) {
             $this->answers[$question->name] = '';

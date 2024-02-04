@@ -16,3 +16,6 @@ use Illuminate\Support\Facades\Route;
 Route::view('/', 'welcome')->name('home');
 
 Route::get('/migraine-trial-questionnaire', \App\Livewire\QuestionnaireForm::class);
+Route::prefix('trials')->group(function () {
+    Route::get('{formName}', \App\Livewire\QuestionnaireForm::class)->name('questionnaire');
+});
