@@ -8,25 +8,13 @@ use Illuminate\Database\Seeder;
 
 class FormAndQuestionsSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
-    public function run(): void
+    private function seedMigraineTrial(): void
     {
-        // Create an example form
         $form = Form::create([
             'name' => 'Migraine Trial Questionnaire',
             'description' => 'Please fill out the following questionnaire to help us understand your migraine symptoms and determine if you are eligible for our clinical trial.',
         ]);
 
-        // Create example questions associated with the form
-        // questions:
-        /**
-         * 1. Subjects first name
-         * 2. subjects date of birth
-         * 3. how often do they experience them: ['daily', 'weekly', 'monthly']
-         * 4. daily frequency if daily was selected: ['1-2', '3-4', '5+']
-         */
         $questions = [
             [
                 'name' => 'first_name',
@@ -67,5 +55,9 @@ class FormAndQuestionsSeeder extends Seeder
         foreach ($questions as $questionData) {
             $form->questions()->create($questionData);
         }
+    }
+    public function run(): void
+    {
+        $this->seedMigraineTrial();
     }
 }
