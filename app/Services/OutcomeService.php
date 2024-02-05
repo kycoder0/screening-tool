@@ -29,7 +29,7 @@ class OutcomeService
         return null;
     }
 
-    private function evaluateRules(array $rules, array $answers): bool
+    public function evaluateRules(array $rules, array $answers): bool
     {
         foreach ($rules['and'] as $rule) {
             if (! $this->evaluateRule($rule, $answers)) {
@@ -40,7 +40,7 @@ class OutcomeService
         return true;
     }
 
-    private function processField(string $field, array $answers): string
+    public function processField(string $field, array $answers): string
     {
         $field = str_replace('{{', '', $field);
         $field = str_replace('}}', '', $field);
@@ -60,7 +60,7 @@ class OutcomeService
         return $interval->y;
     }
 
-    private function evaluateRule(array $rule, array $answers): bool
+    public function evaluateRule(array $rule, array $answers): bool
     {
         // some fields like {{age}} must be processed differently
         $field = $rule['field'];
