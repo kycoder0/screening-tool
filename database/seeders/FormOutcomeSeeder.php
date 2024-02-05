@@ -29,7 +29,7 @@ class FormOutcomeSeeder extends Seeder
                         ]
                     ]
                 ],
-                'conclusion' => 'Participant {{first_name}} is not eligible for the trial',
+                'conclusion' => 'Participants must be over 18 years of age',
             ],
             [
                 'name' => 'cohort_a',
@@ -65,7 +65,7 @@ class FormOutcomeSeeder extends Seeder
                         ]
                     ]
                 ],
-                'conclusion' => 'Participant {{first_name}} is assigned to Cohort B',
+                'conclusion' => 'Candidate {{first_name}} is assigned to Cohort B',
             ],
         ];
 
