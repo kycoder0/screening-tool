@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Form;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class FormAndQuestionsSeeder extends Seeder
@@ -48,7 +47,7 @@ class FormAndQuestionsSeeder extends Seeder
                 'input_type' => 'radio',
                 'options' => ['1-2', '3-4', '5+'],
                 'validation_rules' => ['required'],
-                'visibility_rule' => ['depends_on' => 'migraine_frequency', 'value' => 'daily']
+                'visibility_rule' => ['depends_on' => 'migraine_frequency', 'value' => 'daily'],
             ],
         ];
 
@@ -96,7 +95,7 @@ class FormAndQuestionsSeeder extends Seeder
                 'label' => 'Mental Health Condition Details',
                 'input_type' => 'text',
                 'validation_rules' => ['required', 'string'],
-                'visibility_rule' => ['depends_on' => 'mental_health_condition', 'value' => 'yes']
+                'visibility_rule' => ['depends_on' => 'mental_health_condition', 'value' => 'yes'],
             ],
         ];
 

@@ -11,12 +11,12 @@ const Age = 'age';
 
 class OutcomeService
 {
-
     public function getOutcomeText($outcome, $answers): string
     {
         return $this->replacePlaceholders($outcome->conclusion, $answers);
     }
-    public function getOutcome(Form $form, array $answers): Outcome|null
+
+    public function getOutcome(Form $form, array $answers): ?Outcome
     {
         $outcomes = $form->outcomes;
 
@@ -32,7 +32,7 @@ class OutcomeService
     private function evaluateRules(array $rules, array $answers): bool
     {
         foreach ($rules['and'] as $rule) {
-            if (!$this->evaluateRule($rule, $answers)) {
+            if (! $this->evaluateRule($rule, $answers)) {
                 return false;
             }
         }
@@ -56,6 +56,7 @@ class OutcomeService
         $dob = new Carbon($dob);
         $now = new Carbon();
         $interval = $now->diff($dob);
+
         return $interval->y;
     }
 
@@ -79,11 +80,10 @@ class OutcomeService
         };
     }
 
-
     private function replacePlaceholders(string $conclusion, array $answers): string
     {
         foreach ($answers as $key => $value) {
-            $conclusion = str_replace('{{' . $key . '}}', $value, $conclusion);
+            $conclusion = str_replace('{{'.$key.'}}', $value, $conclusion);
         }
 
         return $conclusion;

@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Question extends Model
 {
     use HasFactory;
+
     protected $fillable = ['form_id', 'name', 'text', 'input_type', 'options', 'validation_rules', 'visibility_rule'];
 
     protected $casts = [

@@ -10,7 +10,6 @@ use Livewire\Component;
 
 class QuestionnaireForm extends Component
 {
-
     public $form;
 
     public $answers = [];
@@ -49,6 +48,7 @@ class QuestionnaireForm extends Component
         ]);
 
         $route = strtolower(str_replace(' ', '-', $this->form->name));
+
         return redirect()->to("trials/$route/results");
     }
 
@@ -63,8 +63,8 @@ class QuestionnaireForm extends Component
             ->extends('layouts.app');
     }
 
-    public function boot(QuestionService $questionService) {
+    public function boot(QuestionService $questionService)
+    {
         $this->questionService = $questionService;
     }
 }
-

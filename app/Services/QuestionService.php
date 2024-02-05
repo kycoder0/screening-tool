@@ -2,7 +2,8 @@
 
 namespace App\Services;
 
-class QuestionService {
+class QuestionService
+{
     const ALWAYS_VISIBLE_RULE = 'always_visible';
 
     public function isVisible($question, $currentAnswers): bool
@@ -30,7 +31,7 @@ class QuestionService {
             if ($question->validation_rules) {
                 $rules["answers.{$question->name}"] = $question->validation_rules;
                 // if not visible, remove "required" rule from the rules array
-                if (!$this->isVisible($question, $answers)) {
+                if (! $this->isVisible($question, $answers)) {
                     // filter out the "required" rule
                     $rules["answers.{$question->name}"] = array_filter($question->validation_rules, function ($rule) {
                         return $rule != 'required';
@@ -48,10 +49,11 @@ class QuestionService {
         foreach ($questions as $question) {
             if ($question->validation_rules) {
                 $ruleKey = "answers.{$question->name}.required";
-                $label = strtoupper(substr($question->label, 0, 1)) . strtolower(substr($question->label, 1));
+                $label = strtoupper(substr($question->label, 0, 1)).strtolower(substr($question->label, 1));
                 $messages[$ruleKey] = "{$label} is required.";
             }
         }
+
         return $messages;
     }
 }

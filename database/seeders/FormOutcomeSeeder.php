@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
-use App\Models\Form; // Ensure you use the correct namespace for your Form model
+use App\Models\Form;
+use Illuminate\Database\Seeder; // Ensure you use the correct namespace for your Form model
 
 class FormOutcomeSeeder extends Seeder
 {
@@ -26,8 +26,8 @@ class FormOutcomeSeeder extends Seeder
                             'field' => '{{age}}',
                             'operator' => '<',
                             'value' => 18,
-                        ]
-                    ]
+                        ],
+                    ],
                 ],
                 'conclusion' => 'Participants must be over 18 years of age',
             ],
@@ -44,8 +44,8 @@ class FormOutcomeSeeder extends Seeder
                             'field' => 'migraine_frequency',
                             'operator' => '!=',
                             'value' => 'daily',
-                        ]
-                    ]
+                        ],
+                    ],
                 ],
                 'conclusion' => 'Participant {{first_name}} is assigned to Cohort A',
             ],
@@ -62,8 +62,8 @@ class FormOutcomeSeeder extends Seeder
                             'field' => 'migraine_frequency',
                             'operator' => '==',
                             'value' => 'daily',
-                        ]
-                    ]
+                        ],
+                    ],
                 ],
                 'conclusion' => 'Candidate {{first_name}} is assigned to Cohort B',
             ],
@@ -77,6 +77,7 @@ class FormOutcomeSeeder extends Seeder
             ]);
         }
     }
+
     public function seedMentalHealthTrialOutcomes(): void
     {
         $form = Form::where('name', 'Mental Health Questionnaire')->first();
@@ -90,8 +91,8 @@ class FormOutcomeSeeder extends Seeder
                             'field' => '{{age}}',
                             'operator' => '<',
                             'value' => 18,
-                        ]
-                    ]
+                        ],
+                    ],
                 ],
                 'conclusion' => 'Participant {{first_name}} is not eligible for the trial',
             ],
@@ -108,8 +109,8 @@ class FormOutcomeSeeder extends Seeder
                             'field' => 'mental_health_condition',
                             'operator' => '==',
                             'value' => 'yes',
-                        ]
-                    ]
+                        ],
+                    ],
                 ],
                 'conclusion' => 'Participant {{first_name}} will be participating in the trial.',
             ],
@@ -126,11 +127,11 @@ class FormOutcomeSeeder extends Seeder
                             'field' => 'mental_health_condition',
                             'operator' => '==',
                             'value' => 'no',
-                        ]
-                    ]
+                        ],
+                    ],
                 ],
                 'conclusion' => 'Participant {{first_name}} will not be participating in the trial.',
-            ]
+            ],
         ];
 
         foreach ($outcomesJson as $outcomeData) {
@@ -142,4 +143,3 @@ class FormOutcomeSeeder extends Seeder
         }
     }
 }
-

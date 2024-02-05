@@ -12,5 +12,6 @@ class Outcome extends Model
     protected $casts = [
         'rules' => 'array',
     ];
+
     protected $fillable = ['name', 'conclusion', 'rules'];
 }
