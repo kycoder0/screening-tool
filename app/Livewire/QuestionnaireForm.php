@@ -26,7 +26,8 @@ class QuestionnaireForm extends Component
             ->where('form_id', $this->form->id)
             ->first();
         if ($submission) {
-            $this->redirect("trials/$formName/results");
+            // remove redirect for testing purposes
+            // $this->redirect("trials/$formName/results");
         }
 
         foreach ($this->form->questions as $question) {

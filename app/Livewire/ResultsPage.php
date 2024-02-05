@@ -24,9 +24,11 @@ class ResultsPage extends Component
             $this->submission = Submission::where('user_ip', request()->ip())
                 ->where('form_id', $form->id)
                 ->with('outcome')
+                ->latest()
                 ->firstOrFail();
         } catch (\Exception $e) {
-            return redirect("trials/$formName");
+            // remove redirect for testing purposes
+            // return redirect("trials/$formName");
         }
 
         $this->outcome = $this->submission->outcome;
