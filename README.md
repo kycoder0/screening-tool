@@ -20,7 +20,11 @@ You can view the seeded questionnaires by visiting the following URLs:
 - http://localhost:8000/trials/mental-health-questionnaire
 
 You can also specify your own questionnaire by editing the `FormAndQuestionsSeeder.php` file in the `app/database/seeders` directory. Please be sure to also include outcomes for the questionnaire in the `FormOutcomeSeeder.php` file.
-
+After you write your questionnaire, you can run the following command to seed the database:
+```bash
+php artisan migrate:refresh --seed
+```
+The route for your questionnaire is determined by the name. For example: `Migraine Trial Questionnaire` would be `/trials/migraine-trial-questionnaire`
 ## Notable Functionality
 - There are two main routes: `/trials/{formId}` and `/trials/{formId}/results`. The first route is used to display the questionnaire and the second route is used to display the results of the questionnaire.
 - The questionnaire is generated dynamically based on the questions specified in the database.
